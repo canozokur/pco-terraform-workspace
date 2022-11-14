@@ -5,7 +5,7 @@ terraform {
     organization = "pco"
 
     workspaces {
-      name = "pco-terraform-workspace-stg"
+      name = "pco-terraform-workspace"
     }
   }
 }
