@@ -1,5 +1,11 @@
-data "oci_identity_availability_domains" "all" {
+resource "oci_identity_compartment" "main" {
   compartment_id = var.oci_tenancy_ocid
+  description    = "Main compartment"
+  name           = "main"
+}
+
+data "oci_identity_availability_domains" "all" {
+  compartment_id = oci_identity_compartment.main.id
 }
 
 locals {
@@ -12,7 +18,7 @@ resource "random_shuffle" "ad" {
 }
 
 data "oci_core_images" "img" {
-  compartment_id = var.oci_tenancy_ocid
+  compartment_id = oci_identity_compartment.main.id
 
   display_name = local.image_name
   shape        = local.shape
@@ -20,14 +26,14 @@ data "oci_core_images" "img" {
 }
 
 resource "oci_core_vcn" "default" {
-  compartment_id = var.oci_tenancy_ocid
+  compartment_id = oci_identity_compartment.main.id
 
   cidr_block   = local.network
   display_name = "default"
 }
 
 resource "oci_core_subnet" "default" {
-  compartment_id = var.oci_tenancy_ocid
+  compartment_id = oci_identity_compartment.main.id
 
   cidr_block   = local.subnet
   display_name = "default"
@@ -35,7 +41,7 @@ resource "oci_core_subnet" "default" {
 }
 
 resource "oci_core_instance" "pco-k8s-node" {
-  compartment_id      = var.oci_tenancy_ocid
+  compartment_id      = oci_identity_compartment.main.id
   availability_domain = element(random_shuffle.ad.result, 0)
   shape               = local.shape
   # shape_config {
