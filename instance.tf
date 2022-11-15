@@ -49,10 +49,10 @@ resource "oci_core_instance" "pco-k8s-node" {
   #   memory_in_gbs = 24
   # }
 
-  # create_vnic_details {
-  #   assign_public_ip = true
-  #   subnet_id        = oci_core_subnet.default.id
-  # }
+  create_vnic_details {
+    assign_public_ip = true
+    subnet_id        = oci_core_subnet.default.id
+  }
 
   # source_details {
   #   boot_volume_size_in_gbs = 200
