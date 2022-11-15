@@ -38,19 +38,19 @@ resource "oci_core_instance" "pco-k8s-node" {
   compartment_id      = var.oci_tenancy_ocid
   availability_domain = element(random_shuffle.ad.result, 0)
   shape               = local.shape
-  shape_config {
-    ocpus         = 4
-    memory_in_gbs = 24
-  }
+  # shape_config {
+  #   ocpus         = 4
+  #   memory_in_gbs = 24
+  # }
 
-  create_vnic_details {
-    assign_public_ip = true
-    subnet_id        = oci_core_subnet.default.id
-  }
+  # create_vnic_details {
+  #   assign_public_ip = true
+  #   subnet_id        = oci_core_subnet.default.id
+  # }
 
-  source_details {
-    boot_volume_size_in_gbs = 200
-    source_id               = one(data.oci_core_images.img.images).id
-    source_type             = "bootVolume"
-  }
+  # source_details {
+  #   boot_volume_size_in_gbs = 200
+  #   source_id               = one(data.oci_core_images.img.images).id
+  #   source_type             = "bootVolume"
+  # }
 }
