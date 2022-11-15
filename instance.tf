@@ -57,6 +57,6 @@ resource "oci_core_instance" "pco-k8s-node" {
   source_details {
     boot_volume_size_in_gbs = 200
     source_id               = one(data.oci_core_images.img.images).id
-    source_type             = "bootVolume"
+    source_type             = "image"
   }
 }
