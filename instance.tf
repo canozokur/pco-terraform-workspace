@@ -14,8 +14,9 @@ resource "random_shuffle" "ad" {
 data "oci_core_images" "img" {
   compartment_id = var.oci_tenancy_ocid
 
-  operating_system         = local.operating_system
-  operating_system_version = local.operating_system_version
+  display_name = local.image_name
+  shape        = local.shape
+  state        = "AVAILABLE"
 }
 
 resource "oci_core_vcn" "default" {
@@ -49,7 +50,7 @@ resource "oci_core_instance" "pco-k8s-node" {
 
   source_details {
     boot_volume_size_in_gbs = 200
-    source_id               = data.oci_core_images.img.id
+    source_id               = one(data.oci_core_images.img.images).id
     source_type             = "bootVolume"
   }
 }
