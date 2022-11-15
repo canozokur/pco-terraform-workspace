@@ -44,10 +44,10 @@ resource "oci_core_instance" "pco-k8s-node" {
   compartment_id      = oci_identity_compartment.main.id
   availability_domain = element(random_shuffle.ad.result, 0)
   shape               = local.shape
-  # shape_config {
-  #   ocpus         = 4
-  #   memory_in_gbs = 24
-  # }
+  shape_config {
+    ocpus         = 4
+    memory_in_gbs = 24
+  }
 
   create_vnic_details {
     assign_public_ip = true
