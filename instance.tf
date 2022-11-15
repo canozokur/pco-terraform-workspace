@@ -1,9 +1,3 @@
-resource "oci_identity_compartment" "main" {
-  compartment_id = var.oci_tenancy_ocid
-  description    = "Main compartment"
-  name           = "main"
-}
-
 data "oci_identity_availability_domains" "all" {
   compartment_id = oci_identity_compartment.main.id
 }
@@ -23,21 +17,6 @@ data "oci_core_images" "img" {
   display_name = local.image_name
   shape        = local.shape
   state        = "AVAILABLE"
-}
-
-resource "oci_core_vcn" "default" {
-  compartment_id = oci_identity_compartment.main.id
-
-  cidr_block   = local.network
-  display_name = "default"
-}
-
-resource "oci_core_subnet" "default" {
-  compartment_id = oci_identity_compartment.main.id
-
-  cidr_block   = local.subnet
-  display_name = "default"
-  vcn_id       = oci_core_vcn.default.id
 }
 
 resource "oci_core_instance" "pco-k8s-node" {
