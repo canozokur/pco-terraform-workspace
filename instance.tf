@@ -27,7 +27,7 @@ resource "oci_core_instance" "pco-k8s-node" {
 
   source_details {
     boot_volume_size_in_gbs = 200
-    source_id               = "ocid1.image.oc1.eu-stockholm-1.aaaaaaaauqrdu5lmnl4jinnrrw2etwmqmqez4ey2q72dcaqad4ayiehthira"
+    source_id               = "ocid1.image.oc1.eu-stockholm-1.aaaaaaaavni5omi3qljq5umzlymbzxdczn3cmvgnfwb4tdfsls6qyehlv43q"
     source_type             = "image"
   }
 
