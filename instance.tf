@@ -17,7 +17,7 @@ data "oci_core_images" "img" {
   operating_system = "Canonical Ubuntu"
   filter {
     name   = "display_name"
-    values = ["^Canonical-Ubuntu-24.04-Minimal-([\\.0-9-]+)$"]    
+    values = ["^Canonical-Ubuntu-22.04-Minimal-aarch64-([\\.0-9-]+)$"]    
     regex  = true
   }
   shape        = local.shape
