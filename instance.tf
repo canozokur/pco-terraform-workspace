@@ -20,7 +20,6 @@ data "oci_core_images" "img" {
     values = ["^Canonical-Ubuntu-24.04-Minimal-([\\.0-9-]+)$"]    
     regex  = true
   }
-  display_name = local.image_name
   shape        = local.shape
   state        = "AVAILABLE"
 }
