@@ -14,6 +14,8 @@ resource "random_shuffle" "ad" {
 data "oci_core_images" "img" {
   compartment_id = oci_identity_compartment.main.id
 
+  operating_system  = local.operating_system
+  operating_system_version = local.operating_system_version
   display_name = local.image_name
   shape        = local.shape
   state        = "AVAILABLE"
