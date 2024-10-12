@@ -14,8 +14,12 @@ resource "random_shuffle" "ad" {
 data "oci_core_images" "img" {
   compartment_id = oci_identity_compartment.main.id
 
-  operating_system  = local.operating_system
-  operating_system_version = local.operating_system_version
+  operating_system = "Canonical Ubuntu"
+  filter {
+    name   = "display_name"
+    values = ["^Canonical-Ubuntu-24.04-Minimal-([\\.0-9-]+)$"]    
+    regex  = true
+  }
   display_name = local.image_name
   shape        = local.shape
   state        = "AVAILABLE"
