@@ -11,19 +11,6 @@ resource "random_shuffle" "ad" {
   result_count = 1
 }
 
-data "oci_core_images" "img" {
-  compartment_id = oci_identity_compartment.main.id
-
-  operating_system = "Canonical Ubuntu"
-  filter {
-    name   = "display_name"
-    values = ["^Canonical-Ubuntu-22.04-Minimal-aarch64-([\\.0-9-]+)$"]    
-    regex  = true
-  }
-  shape        = local.shape
-  state        = "AVAILABLE"
-}
-
 resource "oci_core_instance" "pco-k8s-node" {
   compartment_id      = oci_identity_compartment.main.id
   availability_domain = element(random_shuffle.ad.result, 0)
@@ -40,7 +27,7 @@ resource "oci_core_instance" "pco-k8s-node" {
 
   source_details {
     boot_volume_size_in_gbs = 200
-    source_id               = one(data.oci_core_images.img.images).id
+    source_id               = "ocid1.image.oc1.eu-stockholm-1.aaaaaaaauqrdu5lmnl4jinnrrw2etwmqmqez4ey2q72dcaqad4ayiehthira"
     source_type             = "image"
   }
 
