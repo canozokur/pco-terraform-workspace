@@ -11,14 +11,6 @@ resource "random_shuffle" "ad" {
   result_count = 1
 }
 
-data "oci_core_images" "img" {
-  compartment_id = oci_identity_compartment.main.id
-
-  display_name = local.image_name
-  shape        = local.shape
-  state        = "AVAILABLE"
-}
-
 resource "oci_core_instance" "pco-k8s-node" {
   compartment_id      = oci_identity_compartment.main.id
   availability_domain = element(random_shuffle.ad.result, 0)
@@ -35,7 +27,7 @@ resource "oci_core_instance" "pco-k8s-node" {
 
   source_details {
     boot_volume_size_in_gbs = 200
-    source_id               = one(data.oci_core_images.img.images).id
+    source_id               = local.image_id[var.oci_region]
     source_type             = "image"
   }
 
