@@ -23,6 +23,9 @@ resource "oci_core_instance" "pco-k8s-node" {
   create_vnic_details {
     assign_public_ip = true
     subnet_id        = oci_core_subnet.default.id
+    nsg_ids = [
+      oci_core_network_security_group.default.id
+    ]
   }
 
   source_details {

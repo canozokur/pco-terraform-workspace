@@ -1,11 +1,18 @@
 terraform {
-  required_version = "~> 1.3.4"
+  required_version = "~> 1.9"
 
   cloud {
     organization = "pco"
 
     workspaces {
       name = "pco-terraform-workspace"
+    }
+  }
+
+  required_providers {
+    oci = {
+      source  = "oracle/oci"
+      version = "~> 6.15"
     }
   }
 }
